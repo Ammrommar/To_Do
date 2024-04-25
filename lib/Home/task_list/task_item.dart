@@ -95,8 +95,9 @@ class _Task_ItemState extends State<Task_Item> {
                 //edit the task;
                 Navigator.pushNamed(context, EditTaskTab.routeName,
                     arguments: taskArguments(
+                        taskId: widget.task.id!,
                         title: title,
-                        decription: description,
+                        description: description,
                         selectedDate: selectedDate));
               },
               backgroundColor: MyTheme.primaryColor,
@@ -208,12 +209,13 @@ class _Task_ItemState extends State<Task_Item> {
 
 class taskArguments {
   String title;
-  String decription;
-
+  String description;
   DateTime selectedDate;
+  String taskId;
 
   taskArguments(
       {required this.title,
-      required this.decription,
-      required this.selectedDate});
+      required this.description,
+      required this.selectedDate,
+      required this.taskId});
 }

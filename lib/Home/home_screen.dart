@@ -28,7 +28,7 @@ class _home_ScreenState extends State<home_Screen> {
       appBar: AppBar(
         toolbarHeight: MediaQuery.of(context).size.height * 0.15,
         title: Text(
-          '${AppLocalizations.of(context)!.to_do_list} {${authProvider.currentUser!.name}}',
+          '${AppLocalizations.of(context)!.to_do_list} {${authProvider.currentUser?.name ?? ''}}',
           style: Theme.of(context).textTheme.titleLarge,
         ),
         actions: [

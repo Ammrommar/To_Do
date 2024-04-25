@@ -24,6 +24,7 @@ class _EditTaskTabState extends State<EditTaskTab> {
   DateTime? newSelectedDate;
   String? newTitle;
   String? newDescription;
+  String? taskId;
 
   // late DateTime newSelectedDate;
 
@@ -33,9 +34,10 @@ class _EditTaskTabState extends State<EditTaskTab> {
     if (newSelectedDate == null && args.selectedDate != null) {
       newSelectedDate = args.selectedDate;
     }
-    newDescription ??= args.decription;
+    newDescription ??= args.description;
     newTitle ??= args.title;
     newSelectedDate ??= args.selectedDate;
+    taskId = args.taskId;
     var provider = Provider.of<AppConfigProvider>(context);
     return Scaffold(
         resizeToAvoidBottomInset: false,
@@ -124,7 +126,7 @@ class _EditTaskTabState extends State<EditTaskTab> {
                         newDescription = text;
                       },
                       // controller: decriptionController,
-                      initialValue: '${args.decription}',
+                      initialValue: '${args.description}',
                       style: Theme.of(context).textTheme.titleMedium!.copyWith(
                             color: provider.appTheme == ThemeMode.dark
                                 ? MyTheme.whiteColor
@@ -232,8 +234,8 @@ class _EditTaskTabState extends State<EditTaskTab> {
         isDismissible: false,
       );
       FirebaseUtils.updateTaskInFireStore(
-        id: authProvider.currentUser!.id!,
-        uId: authProvider.currentUser!.id!,
+        id: taskId,
+        uId: taskId!,
         newTitle: newTitle,
         newDate: newSelectedDate!,
         newDescription: newDescription,
@@ -247,6 +249,7 @@ class _EditTaskTabState extends State<EditTaskTab> {
           message: AppLocalizations.of(context)!.task_edited_Successfully,
           posActionName: AppLocalizations.of(context)!.ok,
           posAction: () {
+            print('task edited');
             Navigator.popAndPushNamed(context, home_Screen.routeName,
                 arguments: EditedTaskArguments(
                   newTitle: newTitle!,
